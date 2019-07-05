@@ -1,0 +1,35 @@
+基于 Receiver 整合：
+1. 启动 ZK
+    cd $ZK_HOME/bin
+    ./zkServer.sh start
+    jps
+        xxxx QuorumPeerMain     -> ZK 的进程
+        xxxx Jps
+
+2. 启动 Kafka
+    cd $KAFKA_HOME/bin
+    ./kafka-server-start.sh -daemon ~/app/kafka_2.11-0.9.0.0/config/server.properties   -> 在后台开启 Kafka
+    jps
+        xxxx QuorumPeerMain
+        xxxx Jps
+        xxxx Kafka
+    jps -m      -> 详细的展示进程的配置启动项
+        xxxx QuorumPeerMain /home/hadoop/app/zookeeper-3.4.5-cdh5.7.0/bin/../conf/zoo.cfg
+        xxxx Jps -m
+        xxxx Kafka /home/hadoop/app/kafka_2.11-0.9.0.0/config/server.properties
+
+3. 创建 topic
+    ./kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --pa rtitions 1 --topic kafka_streaming_topic
+    查看是否创建成功：
+        ./kafka-topics.sh --list --zookeeper localhost:2181
+        ->
+            hello_topic
+            kafka_streaming_topic
+            my-replicated-topic
+            streamingtopic
+
+4. 通过控制台测试 topic 是否可以正常的生产和消费
+    生产者：
+        ./kafka-console-producer.sh --broker-list localhost:9092 --topic kafka_streaming_topic
+    消费者：
+        ./kafka-console-consumer.sh --zookeeper localhost:2181 --topic kafka_streaming_topic

@@ -1,0 +1,25 @@
+需求说明：
+    1. 今天到现在为止实战课程的访问量
+    2. 今天到现在为止从搜索引起引流过来的实战课程的访问量
+
+用户访问行为日志：
+    1. 网站访问的访问量
+    2. 网站的粘性
+    3. 推荐
+
+数据清洗：
+
+启动 HBase：
+    1. 启动ZK
+    2. 启动 Hadoop
+    3. 开启 ./start-hbase.sh
+        jps 会出现 19954 HRegionServer
+                  19797 HMaster
+    4. 进入 shell：./hbase shell
+HBase 设计：
+    create 'course_clickcount', 'info'
+
+    RowKey:
+        day_courseid
+
+    create 'logcourse_search_clickcount', "info"

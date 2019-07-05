@@ -1,0 +1,11 @@
+flume-ng agent
+--name simple-agent
+--conf $FlUME_HOME/conf
+--conf-file $FLUME_HOME/conf/flume_push_streaming.conf
+-Dflume.root.logger=INFO,console
+
+flume-ng agent
+--name simple-agent
+--conf $FlUME_HOME/conf
+--conf-file $FLUME_HOME/conf/flume_pull_streaming.conf
+-Dflume.root.logger=INFO,console

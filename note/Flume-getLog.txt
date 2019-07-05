@@ -1,0 +1,33 @@
+streaming.conf
+
+# define source & channel & sink
+agent1.sources=avro-source
+agent1.channels=logger-channel
+agent1.sinks=log-sink
+
+# define source
+agent1.sources.avro-source.type=avro
+agent1.sources.avro-source.bind=0.0.0.0
+agent1.sources.avro-source.port=41414
+
+# define channel
+agent1.channels.logger-channel.type=memory
+
+# define sink
+agent1.sinks.log-sink.type=logger
+
+agent1.sources.avro-source.channels=logger-channel
+agent1.sinks.log-sink.channel=logger-channel
+
+flume-ng agent
+--name agent1
+--conf $FlUME_HOME/conf
+--conf-file $FLUME_HOME/conf/streaming.conf
+-Dflume.root.logger=INFO,console
+
+// flume kafka 联调
+flume-ng agent
+--name agent1
+--conf $FlUME_HOME/conf
+--conf-file $FLUME_HOME/conf/streaming2.conf
+-Dflume.root.logger=INFO,console
